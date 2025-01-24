@@ -499,7 +499,7 @@ export default function MarathonPage() {
             <motion.div variants={fadeIn} className="text-center">
               <h3 className={`${oswald.className} text-xl font-semibold mb-2`}>Director Physical Education and Sports</h3>
               <p className="text-gray-600 mb-1">Mr. Abaji Mane</p>
-              <p className="text-amber-600 font-medium">+91 9767063728</p>
+              <p className="text-amber-600 font-medium">+91 9767063728 </p>
             </motion.div>
 
             {/* Director */}
