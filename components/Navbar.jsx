@@ -102,16 +102,18 @@ export default function Navbar({ currentRoute }) {
       >
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
-              <Image 
-                src="/logo_rotract.JPG" 
-                alt="Rotaract Logo" 
-                width={40} 
-                height={40}
-                className="rounded-full shadow-md md:w-[50px] md:h-[50px]"
-              />
-              <span className={`${oswald.className} text-lg md:text-xl font-bold text-amber-600`}>
-                Rotaract DYPCOE
+            <Link href="/" className="flex items-center gap-4 hover:opacity-90 transition-opacity">
+              <div className="relative">
+                <Image 
+                  src={currentRoute === '/marathon' ? "/marathon.png" : "/logo_rotract.JPG"}
+                  alt={currentRoute === '/marathon' ? "Runspire Marathon Logo" : "Rotaract Logo"}
+                  width={currentRoute === '/marathon' ? 45 : 40}
+                  height={currentRoute === '/marathon' ? 45 : 40}
+                  className={`${currentRoute === '/marathon' ? 'object-contain' : 'rounded-full object-cover'} shadow-md md:w-[${currentRoute === '/marathon' ? '60px' : '50px'}] md:h-[${currentRoute === '/marathon' ? '60px' : '50px'}]`}
+                />
+              </div>
+              <span className={`${oswald.className} text-xl md:text-2xl font-bold text-amber-600`}>
+                {currentRoute === '/marathon' ? 'Runspire' : 'Rotaract DYPCOE'}
               </span>
             </Link>
             <div className="hidden md:flex gap-8 items-center">
@@ -231,16 +233,18 @@ export default function Navbar({ currentRoute }) {
                     closed: { opacity: 0, y: 20 }
                   }}
                 >
-                  <div className="flex items-center gap-3">
-                    <Image 
-                      src="/logo_rotract.JPG" 
-                      alt="Rotaract Logo" 
-                      width={40} 
-                      height={40}
-                      className="rounded-full shadow-sm"
-                    />
-                    <span className={`${oswald.className} text-lg font-bold text-amber-600`}>
-                      Rotaract DYPCOE
+                  <div className="flex items-center gap-4">
+                    <div className="relative">
+                      <Image 
+                        src={currentRoute === '/marathon' ? "/marathon.png" : "/logo_rotract.JPG"}
+                        alt={currentRoute === '/marathon' ? "Runspire Marathon Logo" : "Rotaract Logo"}
+                        width={currentRoute === '/marathon' ? 45 : 40}
+                        height={currentRoute === '/marathon' ? 45 : 40}
+                        className={`${currentRoute === '/marathon' ? 'object-contain' : 'rounded-full object-cover'} shadow-sm`}
+                      />
+                    </div>
+                    <span className={`${oswald.className} text-xl font-bold text-amber-600`}>
+                      {currentRoute === '/marathon' ? 'Runspire' : 'Rotaract DYPCOE'}
                     </span>
                   </div>
                 </motion.div>
