@@ -12,7 +12,12 @@ import {
   Clock,
   Logs,
   Waypoints,
-  Component,
+  Award,
+  Trophy,
+  Shirt,
+  ScrollText,
+  Coffee,
+  Banknote,
   Instagram
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -101,20 +106,19 @@ export default function MarathonPage() {
         initial="initial"
         animate="animate"
         variants={staggerContainer}
-        className="relative min-h-screen bg-gradient-to-br from-amber-700 to-amber-900"
+        className="relative min-h-screen bg-gradient-to-br from-amber-700 to-amber-900 pb-16 md:pb-24"
       >
         {/* Background Pattern */}
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20"></div>
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
 
         {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
+        <div className="absolute inset-0 bg-black/50"></div>
 
         {/* Content Container */}
-        <div className="container mx-auto relative z-10 h-screen flex flex-col">
-
+        <div className="container mx-auto relative z-10 min-h-screen flex flex-col">
           {/* Main Content */}
-          <div className="flex-1 flex items-center">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center w-full">
+          <div className="flex-1 flex items-center pt-20 md:pt-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center w-full px-4 md:px-0">
               {/* Left Side - Logo */}
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
@@ -122,7 +126,7 @@ export default function MarathonPage() {
                 transition={{ delay: 0.2, duration: 0.6 }}
                 className="flex justify-center items-center"
               >
-                <div className="relative w-[250px] h-[250px] md:w-[400px] md:h-[400px]">
+                <div className="relative w-[200px] h-[200px] md:w-[400px] md:h-[400px]">
                   <Image
                     src="/marathon.png"
                     alt="Marathon 2024 Logo"
@@ -130,8 +134,6 @@ export default function MarathonPage() {
                     className="object-contain drop-shadow-2xl"
                     priority
                   />
-                  {/* Glow Effect */}
-                  <div className="absolute inset-0 bg-amber-500/20 blur-3xl rounded-full -z-10"></div>
                 </div>
               </motion.div>
 
@@ -145,21 +147,23 @@ export default function MarathonPage() {
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.6 }}
-                  className="space-y-4 mb-8"
+                  className="space-y-4"
                 >
-                  <h1 className={`${oswald.className} text-4xl md:text-6xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-white to-amber-200`}>
+                  <h1 className={`${oswald.className} text-3xl md:text-6xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-white to-amber-200`}>
                     Runspire Marathon 2025
                   </h1>
-                  <p className="text-xl md:text-2xl text-white-100/90 max-w-xl italic">
+                  <p className="text-lg md:text-2xl text-white-100/90 max-w-xl italic">
                     Join the Run, Feel the Thrill!
                   </p>
-                  <p className="text-lg md:text-xl text-amber-100/90 max-w-xl">
+                  <p className="text-base md:text-xl text-amber-100/90 max-w-xl">
                     Get ready to lace up your running shoes and be part of the excitement at the Runspire Marathon 2025 – a 10 km marathon. Whether you're an experienced runner or a fitness enthusiast, this event is your chance to challenge yourself, connect with like-minded individuals, and celebrate the spirit of health and wellness.
                     With a scenic route, energetic vibes, and a sense of community, this marathon promises to be an unforgettable experience. Plus, exciting rewards and surprises await every participant!
                   </p>
-                  <p className="text-lg md:text-xl text-amber-100/90 max-w-xl font-bold mt-6">
-                    Don't miss out - register now and take the first step toward your fitness journey.
-                  </p>
+                  <div className="border-t border-amber-100/20 pt-4 mt-6">
+                    <p className="text-base md:text-xl text-amber-100/90 max-w-xl font-semibold">
+                      Don't miss out - register now and take the first step toward your fitness journey.
+                    </p>
+                  </div>
                 </motion.div>
 
                 {/* CTA Button */}
@@ -167,10 +171,10 @@ export default function MarathonPage() {
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 1 }}
-                  className="flex justify-center items-center w-full"
+                  className="flex justify-center items-center w-full mt-8"
                 >
                   <Button
-                    className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white text-xl px-12 py-5 rounded-xl shadow-lg hover:shadow-xl transition-all w-[80%]"
+                    className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white text-lg md:text-xl px-8 md:px-12 py-4 md:py-5 rounded-xl shadow-lg hover:shadow-xl transition-all w-full md:w-[80%]"
                     onClick={scrollToSection}
                   >
                     Register Now
@@ -180,9 +184,6 @@ export default function MarathonPage() {
             </div>
           </div>
         </div>
-
-        {/* Bottom Gradient */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent"></div>
       </motion.section>
 
       {/* Event Details */}
@@ -192,22 +193,25 @@ export default function MarathonPage() {
         whileInView="animate"
         viewport={{ once: true }}
         variants={staggerContainer}
-        className="py-20 bg-gradient-to-b from-white via-amber-50/30 to-white relative"
+        className="py-20 md:py-24 bg-white relative overflow-hidden mt-[-2rem] md:mt-0"
       >
+        {/* Grid Pattern */}
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5"></div>
+
         <div className="container mx-auto px-4 relative z-10">
           <motion.h2
             variants={fadeIn}
-            className={`${oswald.className} text-3xl md:text-5xl font-bold text-center text-amber-600 mb-12`}
+            className={`${oswald.className} text-3xl md:text-5xl font-bold text-center text-amber-600 mb-8 md:mb-12`}
           >
             Event Details
           </motion.h2>
+
           <motion.div
             variants={fadeIn}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto mb-12"
+            className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 max-w-5xl mx-auto mb-8 md:mb-12"
           >
-            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all">
-              <div className="flex items-center gap-4 mb-4">
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border border-amber-100">
+              <div className="flex items-center gap-4">
                 <div className="p-3 bg-amber-100 rounded-xl">
                   <Calendar className="w-6 h-6 text-amber-600" />
                 </div>
@@ -218,8 +222,8 @@ export default function MarathonPage() {
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all">
-              <div className="flex items-center gap-4 mb-4">
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border border-amber-100">
+              <div className="flex items-center gap-4">
                 <div className="p-3 bg-amber-100 rounded-xl">
                   <Clock className="w-6 h-6 text-amber-600" />
                 </div>
@@ -230,9 +234,9 @@ export default function MarathonPage() {
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all">
-              <a href="https://maps.app.goo.gl/tS2E27n1cNUZALpv7" target="_blank">
-                <div className="flex items-center gap-4 mb-4">
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border border-amber-100">
+              <a href="https://maps.app.goo.gl/tS2E27n1cNUZALpv7" target="_blank" className="block">
+                <div className="flex items-center gap-4">
                   <div className="p-3 bg-amber-100 rounded-xl">
                     <MapPin className="w-6 h-6 text-amber-600" />
                   </div>
@@ -247,10 +251,10 @@ export default function MarathonPage() {
 
           <motion.div
             variants={fadeIn}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto"
+            className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 max-w-5xl mx-auto"
           >
-            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all">
-              <div className="flex items-center gap-4 mb-4">
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border border-amber-100">
+              <div className="flex items-center gap-4">
                 <div className="p-3 bg-amber-100 rounded-xl">
                   <Logs className="w-6 h-6 text-amber-600" />
                 </div>
@@ -262,8 +266,8 @@ export default function MarathonPage() {
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all">
-              <div className="flex items-center gap-4 mb-4">
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border border-amber-100">
+              <div className="flex items-center gap-4">
                 <div className="p-3 bg-amber-100 rounded-xl">
                   <Waypoints className="w-6 h-6 text-amber-600" />
                 </div>
@@ -274,8 +278,8 @@ export default function MarathonPage() {
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all">
-              <div className="flex items-center gap-4 mb-4">
+            <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border border-amber-100">
+              <div className="flex items-center gap-4">
                 <div className="p-3 bg-amber-100 rounded-xl">
                   <Medal className="w-6 h-6 text-amber-600" />
                 </div>
@@ -289,54 +293,109 @@ export default function MarathonPage() {
         </div>
       </motion.section>
 
-      {/* Race Categories */}
+      {/* Perks and Prizes */}
       <motion.section
+        id="prizes"
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
         variants={staggerContainer}
-        className="py-20 bg-gradient-to-b from-white via-amber-50/30 to-white relative"
+        className="py-20 bg-white relative"
       >
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5"></div>
         <div className="container mx-auto px-4 relative z-10">
-          <motion.h2
+          <motion.div
             variants={fadeIn}
-            className={`${oswald.className} text-3xl md:text-5xl font-bold text-center text-amber-600 mb-12`}
+            className="text-center max-w-2xl mx-auto mb-12"
           >
-            Perks and Prizes
-          </motion.h2>
+            <h2 className={`${oswald.className} text-3xl md:text-5xl font-bold text-amber-600 mb-4`}>
+              Perks and Prizes
+            </h2>
+            <p className="text-gray-600">
+              Every participant of the marathon will receive exciting perks to make their marathon experience memorable
+            </p>
+          </motion.div>
 
           <motion.div
             variants={staggerContainer}
-            className="grid grid-cols-1 max-w-xl mx-auto"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
           >
+            {/* T-Shirt and Bib Card */}
             <motion.div
               variants={fadeIn}
-              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all border border-amber-100"
+              className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border border-amber-100 flex flex-col"
             >
-              <p className="text-gray-600 mb-6">Every participant of the marathon will receive exciting perks to make their marathon experience memorable</p>
-              <ul className="space-y-3">
-                {[
-                  "T-Shirt and Bib: All registered runners will receive a specially designed event T-shirt along with their bib number.",
-                  "Medals: Finisher medals for all participants who complete the run and Special winner medals for the top 5 finishers.",
-                  "Certificate: A certificate of participation will be provided to all runners, with winner certificates for the top 5 in competitive categories.",
-                  "Breakfast: Post-run breakfast to recharge and celebrate your accomplishment.",
-                  "Prize Money *: Cash prizes for the top 5 winners."
-                ].map((feature, i) => (
-                  <li key={i} className="flex gap-2 text-gray-600">
-                    <Component className="w-4 h-4 text-amber-600" />
-                    <p>{feature}</p>
-                  </li>
-                ))}
-              </ul>
+              <div className="bg-amber-50 rounded-xl p-4 mb-4 inline-flex items-center justify-center w-12 h-12">
+                <Shirt className="w-6 h-6 text-amber-600" />
+              </div>
+              <h3 className={`${oswald.className} text-xl font-semibold mb-3`}>T-Shirt and Bib</h3>
+              <p className="text-gray-600 flex-grow">
+                All registered runners will receive a specially designed event T-shirt along with their bib number.
+              </p>
+            </motion.div>
+
+            {/* Medals Card */}
+            <motion.div
+              variants={fadeIn}
+              className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border border-amber-100 flex flex-col"
+            >
+              <div className="bg-amber-50 rounded-xl p-4 mb-4 inline-flex items-center justify-center w-12 h-12">
+                <Trophy className="w-6 h-6 text-amber-600" />
+              </div>
+              <h3 className={`${oswald.className} text-xl font-semibold mb-3`}>Medals</h3>
+              <p className="text-gray-600 flex-grow">
+                Finisher medals for all participants who complete the run and Special winner medals for the top 5 finishers.
+              </p>
+            </motion.div>
+
+            {/* Certificate Card */}
+            <motion.div
+              variants={fadeIn}
+              className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border border-amber-100 flex flex-col"
+            >
+              <div className="bg-amber-50 rounded-xl p-4 mb-4 inline-flex items-center justify-center w-12 h-12">
+                <ScrollText className="w-6 h-6 text-amber-600" />
+              </div>
+              <h3 className={`${oswald.className} text-xl font-semibold mb-3`}>Certificate</h3>
+              <p className="text-gray-600 flex-grow">
+                A certificate of participation will be provided to all runners, with winner certificates for the top 5 in competitive categories.
+              </p>
+            </motion.div>
+
+            {/* Breakfast Card */}
+            <motion.div
+              variants={fadeIn}
+              className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border border-amber-100 flex flex-col"
+            >
+              <div className="bg-amber-50 rounded-xl p-4 mb-4 inline-flex items-center justify-center w-12 h-12">
+                <Coffee className="w-6 h-6 text-amber-600" />
+              </div>
+              <h3 className={`${oswald.className} text-xl font-semibold mb-3`}>Breakfast</h3>
+              <p className="text-gray-600 flex-grow">
+                Post-run breakfast to recharge and celebrate your accomplishment.
+              </p>
+            </motion.div>
+
+            {/* Prize Money Card */}
+            <motion.div
+              variants={fadeIn}
+              className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all border border-amber-100 flex flex-col md:col-span-2 lg:col-span-1"
+            >
+              <div className="bg-amber-50 rounded-xl p-4 mb-4 inline-flex items-center justify-center w-12 h-12">
+                <Banknote className="w-6 h-6 text-amber-600" />
+              </div>
+              <h3 className={`${oswald.className} text-xl font-semibold mb-3`}>Prize Money *</h3>
+              <p className="text-gray-600 flex-grow">
+                Cash prizes for the top 5 winners.
+              </p>
             </motion.div>
           </motion.div>
-
         </div>
       </motion.section>
 
       {/* Route Maps */}
       <motion.section
+        id="routes"
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}
@@ -357,9 +416,9 @@ export default function MarathonPage() {
             className="grid grid-cols-1 md:grid-cols-3 gap-3"
           >
             {[
-              { title: "3K Route", file: "../3KM.gpx" },
-              { title: "5K Route", file: "../5KM.gpx" },
-              { title: "10K Route", file: "../10KM.gpx" }
+              { title: "3K Route", file: "../3KM.gpx", zoom: { mobile: 14, desktop: 13 } },
+              { title: "5K Route", file: "../5KM.gpx", zoom: { mobile: 14, desktop: 13 } },
+              { title: "10K Route", file: "../10KM.gpx", zoom: { mobile: 14, desktop: 13 } }
             ].map((route, index) => (
               <motion.div
                 key={index}
@@ -370,12 +429,11 @@ export default function MarathonPage() {
                   <MapPin className="w-5 md:w-6 h-5 md:h-6" />
                   {route.title}
                 </h3>
-                <div className="h-[300px] md:h-[400px] w-full rounded-xl overflow-hidden border-2 border-amber-100">
-                  <MarathonMap gpxFile={route.file} />
+                <div className="h-[250px] md:h-[400px] w-full rounded-xl overflow-hidden border-2 border-amber-100">
+                  <MarathonMap gpxFile={route.file} zoom={route.zoom} />
                 </div>
               </motion.div>
             ))}
-
           </motion.div>
         </div>
       </motion.section>
@@ -404,8 +462,8 @@ export default function MarathonPage() {
             >
               Event Partners
             </motion.h2>
-            <div className="grid grid-cols-1 md:flex md:flex-wrap items-center justify-center gap-8 md:gap-16">
-              <div className="group">
+            <div className="grid grid-cols-1 md:flex md:flex-wrap items-center justify-center gap-12 md:gap-16">
+              <div className="group w-[90vw] max-w-[500px] md:w-[300px] px-2 md:px-0">
                 <motion.div
                   variants={scaleIn}
                   whileHover={{
@@ -415,13 +473,13 @@ export default function MarathonPage() {
                       ease: "easeOut"
                     }
                   }}
-                  className="relative w-full h-[200px] md:w-[300px] md:h-[300px] bg-white/70 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2 duration-300"
+                  className="relative aspect-square bg-white/70 backdrop-blur-sm rounded-2xl p-1 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2 duration-300"
                 >
                   <Image
                     src="/logo_rotract.JPG"
                     alt="Rotaract DYPCOE Logo"
                     fill
-                    className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+                    className="object-contain p-1 group-hover:scale-105 transition-transform duration-300"
                     priority
                   />
                 </motion.div>
@@ -429,7 +487,7 @@ export default function MarathonPage() {
                   Rotaract DYPCOE
                 </p>
               </div>
-              <div className="group">
+              <div className="group w-[90vw] max-w-[500px] md:w-[300px] px-2 md:px-0">
                 <motion.div
                   variants={scaleIn}
                   whileHover={{
@@ -439,13 +497,13 @@ export default function MarathonPage() {
                       ease: "easeOut"
                     }
                   }}
-                  className="relative w-full h-[200px] md:w-[300px] md:h-[300px] bg-white/70 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2 duration-300"
+                  className="relative aspect-square bg-white/70 backdrop-blur-sm rounded-2xl p-1 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2 duration-300"
                 >
                   <Image
                     src="/pradhikaran.png"
                     alt="Rotaract Pradhikaran Logo"
                     fill
-                    className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+                    className="object-contain p-1 group-hover:scale-105 transition-transform duration-300"
                     priority
                   />
                 </motion.div>
@@ -453,7 +511,7 @@ export default function MarathonPage() {
                   Rotaract Pradhikaran
                 </p>
               </div>
-              <div className="group">
+              <div className="group w-[90vw] max-w-[500px] md:w-[300px] px-2 md:px-0">
                 <motion.div
                   variants={scaleIn}
                   whileHover={{
@@ -463,13 +521,13 @@ export default function MarathonPage() {
                       ease: "easeOut"
                     }
                   }}
-                  className="relative w-full h-[200px] md:w-[300px] md:h-[300px] bg-white/70 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2 duration-300"
+                  className="relative aspect-square bg-white/70 backdrop-blur-sm rounded-2xl p-1 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2 duration-300"
                 >
                   <Image
                     src="/satej.png"
                     alt="SATEJ Logo"
                     fill
-                    className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+                    className="object-contain p-1 group-hover:scale-105 transition-transform duration-300"
                     priority
                   />
                 </motion.div>
@@ -482,8 +540,37 @@ export default function MarathonPage() {
         </div>
       </motion.section>
 
+      {/* Sponsors Section - Commented out for now */}
+      {/* <motion.section
+        id="sponsors"
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        variants={staggerContainer}
+        className="py-20 bg-white relative overflow-hidden"
+      >
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div
+            variants={fadeIn}
+            className="flex flex-col items-center justify-center gap-12 md:gap-20"
+          >
+            <motion.h2
+              variants={scaleIn}
+              className={`${oswald.className} text-3xl md:text-5xl font-bold text-amber-600 bg-white/50 backdrop-blur-sm px-8 md:px-12 py-4 md:py-6 rounded-2xl shadow-sm text-center`}
+            >
+              Our Sponsors
+            </motion.h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {/* Add sponsor cards here when needed 
+            </div>
+          </motion.div>
+        </div>
+      </motion.section> */}
+
       {/* Footer */}
       <motion.footer
+        id="contact"
         initial="initial"
         whileInView="animate"
         viewport={{ once: true }}

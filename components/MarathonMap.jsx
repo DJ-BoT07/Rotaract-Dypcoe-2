@@ -49,15 +49,24 @@ function deg2rad(deg) {
   return deg * (Math.PI/180);
 }
 
-export default function MarathonMap({gpxFile}) {
+export default function MarathonMap({ gpxFile, zoom }) {
   const [route, setRoute] = useState(null);
   const [center, setCenter] = useState([18.654756, 73.749640]);
-  const [zoom, setZoom] = useState(14);
+  const [mapZoom, setMapZoom] = useState(13);
   const [totalDistance, setTotalDistance] = useState(0);
   const [kmMarkers, setKmMarkers] = useState([]);
   const [isClient, setIsClient] = useState(false);
   const [L, setL] = useState(null);
   const [icons, setIcons] = useState(null);
+
+  // Detect if mobile
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     setIsClient(true);
@@ -125,14 +134,13 @@ export default function MarathonMap({gpxFile}) {
           if (points.length > 0) {
             if (gpxFile === "../10KM.gpx") {
               setCenter([18.654543, 73.747570]); // Center for 10KM
-              setZoom(14); // Zoom level for 10KM
             } else if (gpxFile === "../5KM.gpx") {
               setCenter([18.654368, 73.759124]); // Center for 5KM
-              setZoom(15); // Zoom level for 5KM
             } else if (gpxFile === "../3KM.gpx") {
               setCenter([18.648198, 73.757481]); // Center for 3KM
-              setZoom(15); // Zoom level for 3KM
             }
+            // Set zoom based on device and props
+            setMapZoom(isMobile ? zoom?.mobile || 14 : zoom?.desktop || 13);
           }
         }
       } catch (error) {
@@ -141,7 +149,7 @@ export default function MarathonMap({gpxFile}) {
     };
 
     fetchGPX();
-  }, [isClient, L, gpxFile]);
+  }, [isClient, L, gpxFile, isMobile, zoom]);
 
   if (!isClient || !L || !icons) {
     return (
@@ -154,9 +162,10 @@ export default function MarathonMap({gpxFile}) {
   return (
     <MapContainer
       center={center}
-      zoom={zoom}
+      zoom={mapZoom}
       style={{ height: '100%', width: '100%' }}
       scrollWheelZoom={true}
+      zoomControl={!isMobile} // Hide zoom controls on mobile
     >
       {/* <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -173,7 +182,7 @@ export default function MarathonMap({gpxFile}) {
             positions={route}
             pathOptions={{ 
               color: '#d97706', 
-              weight: 5,
+              weight: isMobile ? 3 : 5,
               opacity: 0.8,
               lineCap: 'round',
               lineJoin: 'round'
@@ -190,12 +199,12 @@ export default function MarathonMap({gpxFile}) {
             <CircleMarker
               key={index}
               center={marker.position}
-              radius={6}
+              radius={isMobile ? 4 : 6}
               pathOptions={{
                 color: '#d97706',
                 fillColor: '#fff',
                 fillOpacity: 1,
-                weight: 2
+                weight: isMobile ? 1.5 : 2
               }}
             >
               <Popup>

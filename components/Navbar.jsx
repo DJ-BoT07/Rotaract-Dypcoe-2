@@ -13,7 +13,9 @@ import {
   X,
   ExternalLink,
   Calendar,
-  Phone
+  Phone,
+  Trophy,
+  MapPin
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -35,14 +37,11 @@ export default function Navbar({ currentRoute }) {
     
     // If we're on the marathon page and trying to navigate to a section
     if (window.location.pathname === '/marathon' && hash) {
-      await router.push('/');
-      setTimeout(() => {
-        const element = document.getElementById(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-          setIsMobileMenuOpen(false);
-        }
-      }, 100);
+      const element = document.getElementById(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        setIsMobileMenuOpen(false);
+      }
       return;
     }
 
@@ -59,12 +58,24 @@ export default function Navbar({ currentRoute }) {
     }
   };
 
-  const navItems = [
+  // Different nav items for different pages
+  const homeNavItems = [
     { href: "/", icon: <HomeIcon className="w-5 h-5" />, label: "Home" },
     { href: "#about", icon: <Info className="w-5 h-5" />, label: "About" },
     { href: "#events", icon: <Calendar className="w-5 h-5" />, label: "Events" },
     { href: "#contact", icon: <Phone className="w-5 h-5" />, label: "Contact" },
   ];
+
+  const marathonNavItems = [
+    { href: "/", icon: <HomeIcon className="w-5 h-5" />, label: "Home" },
+    { href: "#event-details", icon: <Calendar className="w-5 h-5" />, label: "Event Details" },
+    { href: "#prizes", icon: <Trophy className="w-5 h-5" />, label: "Prizes" },
+    { href: "#routes", icon: <MapPin className="w-5 h-5" />, label: "Routes" },
+    // { href: "#sponsors", icon: <Users className="w-5 h-5" />, label: "Sponsors" },
+    { href: "#contact", icon: <Phone className="w-5 h-5" />, label: "Contact" },
+  ];
+
+  const navItems = currentRoute === '/marathon' ? marathonNavItems : homeNavItems;
 
   const handleRegisterClick = async () => {    
     if (window.location.pathname === '/marathon') {
@@ -126,26 +137,34 @@ export default function Navbar({ currentRoute }) {
                 Register Now for Marathon
               </Button>
             </div>
-            {/* Mobile Menu Button */}
-            <motion.button 
-              className="md:hidden p-2 text-gray-600 hover:text-amber-600 transition-colors relative z-50"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle menu"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <motion.div
-                initial={false}
-                animate={{ rotate: isMobileMenuOpen ? 180 : 0 }}
-                transition={{ duration: 0.4, ease: [0.6, -0.05, 0.01, 0.99] }}
+            <div className="flex items-center gap-4 md:hidden">
+              <Button 
+                className="bg-amber-600 hover:bg-amber-700 text-white text-sm px-3 py-1 shadow-md hover:shadow-lg transition-all whitespace-nowrap ml-4"
+                onClick={handleRegisterClick}
               >
-                {isMobileMenuOpen ? (
-                  <X className="w-6 h-6" />
-                ) : (
-                  <Menu className="w-6 h-6" />
-                )}
-              </motion.div>
-            </motion.button>
+                Register for Marathon
+              </Button>
+              {/* Mobile Menu Button */}
+              <motion.button 
+                className="p-2 text-gray-600 hover:text-amber-600 transition-colors relative z-50"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label="Toggle menu"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <motion.div
+                  initial={false}
+                  animate={{ rotate: isMobileMenuOpen ? 180 : 0 }}
+                  transition={{ duration: 0.4, ease: [0.6, -0.05, 0.01, 0.99] }}
+                >
+                  {isMobileMenuOpen ? (
+                    <X className="w-6 h-6" />
+                  ) : (
+                    <Menu className="w-6 h-6" />
+                  )}
+                </motion.div>
+              </motion.button>
+            </div>
           </div>
         </div>
       </motion.nav>
@@ -227,7 +246,7 @@ export default function Navbar({ currentRoute }) {
                 </motion.div>
                 <div className="flex flex-col gap-2 p-4">
                   {navItems.map((item, index) => (
-                    <a 
+                    <motion.a 
                       key={item.href}
                       href={item.href}
                       onClick={(e) => handleNavClick(e, item.href)}
@@ -236,34 +255,22 @@ export default function Navbar({ currentRoute }) {
                           ? 'text-amber-600 bg-amber-50'
                           : 'text-gray-600 hover:text-amber-600 hover:bg-amber-50'
                       }`}
+                      variants={{
+                        open: { 
+                          opacity: 1, 
+                          x: 0,
+                          transition: { delay: 0.2 + index * 0.1 }
+                        },
+                        closed: { 
+                          opacity: 0, 
+                          x: 20 
+                        }
+                      }}
                     >
-                      <motion.div
-                        variants={{
-                          open: { 
-                            opacity: 1, 
-                            x: 0,
-                            transition: { delay: 0.2 + index * 0.1 }
-                          },
-                          closed: { 
-                            opacity: 0, 
-                            x: 20 
-                          }
-                        }}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        className="flex items-center gap-3 w-full"
-                      >
-                        {item.icon}
-                        <span className="font-medium">{item.label}</span>
-                      </motion.div>
-                    </a>
+                      {item.icon}
+                      <span className="font-medium">{item.label}</span>
+                    </motion.a>
                   ))}
-                  <Button 
-                    className="bg-amber-600 hover:bg-amber-700 text-white gap-2 mt-2 shadow-md hover:shadow-lg transition-all"
-                    onClick={handleRegisterClick}
-                  >
-                    Register Now for Marathon
-                  </Button>
                 </div>
                 <motion.div 
                   className="mt-auto p-4 border-t"
